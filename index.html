@@ -26,21 +26,6 @@
     .skill-row { margin-bottom:5px; display:flex; align-items:center; }
     .skill-label { width:120px; text-align:right; margin-right:10px; }
     #export-btn { background:#ff0; color:#000; border:none; padding:10px; cursor:pointer; margin-top:10px; }
-    
-    /* New: Reset button styling */
-    #reset-btn {
-      background:#c00;
-      color:white;
-      border:none;
-      padding:12px 24px;
-      font-size:16px;
-      font-weight:bold;
-      border-radius:6px;
-      cursor:pointer;
-      margin:20px 10px;
-      box-shadow:0 2px 6px rgba(0,0,0,0.5);
-    }
-    #reset-btn:hover { background:#f00; }
   </style>
 </head>
 <body>
@@ -58,13 +43,8 @@
   <input type="file" id="import-btn" accept=".json" style="display:none;" onchange="importData(event)">
   <button onclick="document.getElementById('import-btn').click()">Import Data</button>
 
-  <!-- NEW: Reset button with confirmation -->
-  <button id="reset-btn" onclick="clearAllData()">Reset / Clear All Saved Data</button>
-
-  <!-- Your existing sheet content (unchanged) -->
   <div id="page1" class="tab-content active">
     <img class="sheet" src="https://raw.githubusercontent.com/Vanoth/Dead-End-Traders-character-sheets/main/CHARACTER%20SHEET%201.png" alt="Page 1">
-    
     <!-- Avatar overlay -->
     <img id="avatar" src="" alt="Character Avatar">
     <div id="avatar-input" class="overlay">
@@ -181,7 +161,6 @@
 
   <div id="page2" class="tab-content">
     <img class="sheet" src="https://raw.githubusercontent.com/Vanoth/Dead-End-Traders-character-sheets/main/CHARACTER%20SHEET%20inventory2.png" alt="Page 2">
-    
     <!-- Left column skills -->
     <div class="overlay skills-column" style="top:60px; left:50px; width:480px;">
       <div class="skill-row">
@@ -190,13 +169,7 @@
         <span class="pool-sum" id="alert-sum">0</span>
       </div>
       
-      <div class="skill-row" style="margin-top:30px;">
-        <span class="skill-label">Art</span>
-        <span class="dot" data-key="art1" onclick="toggleDot(this)">○</span><span class="dot" data-key="art2" onclick="toggleDot(this)">○</span><span class="dot" data-key="art3" onclick="toggleDot(this)">○</span><span class="dot" data-key="art4" onclick="toggleDot(this)">○</span><span class="dot" data-key="art5" onclick="toggleDot(this)">○</span>
-        <span class="pool-sum" id="art-sum">0</span>
-      </div>
-      
-      /* Add remaining left column skills here */
+      <!-- Add remaining left column skills -->
     </div>
     
     <!-- Right column skills -->
@@ -207,7 +180,7 @@
         <span class="pool-sum" id="animalken-sum">0</span>
       </div>
       
-      /* Add remaining right column skills here */
+      <!-- Add remaining right column skills -->
     </div>
     
     <!-- Player Inventory -->
@@ -216,7 +189,68 @@
     </div>
   </div>
 
-  /* Pages 3, 4, 5 remain unchanged */
+  <div id="page3" class="tab-content">
+    <img class="sheet" src="https://raw.githubusercontent.com/Vanoth/Dead-End-Traders-character-sheets/main/back%20fill%20CHARACTER%203.png" alt="Page 3">
+    <!-- Augments boxes -->
+    <div class="overlay" style="top:100px; left:240px; width:240px;">
+      <textarea data-key="head-augment" placeholder="Head Augment/Injury" style="width:100%; height:60px;"></textarea>
+    </div>
+    
+    <div class="overlay" style="top:180px; left:60px; width:240px;">
+      <textarea data-key="left-upper" placeholder="Left Upper" style="width:100%; height:60px;"></textarea>
+    </div>
+    
+    <div class="overlay" style="top:240px; left:720px; width:240px;">
+      <textarea data-key="right-arm" placeholder="Right Arm" style="width:100%; height:60px;"></textarea>
+    </div>
+    
+    <div class="overlay" style="top:480px; left:360px; width:240px;">
+      <textarea data-key="torso" placeholder="Torso" style="width:100%; height:60px;"></textarea>
+    </div>
+    
+    <div class="overlay" style="top:600px; left:120px; width:240px;">
+      <textarea data-key="left-leg" placeholder="Left Leg" style="width:100%; height:60px;"></textarea>
+    </div>
+    
+    <div class="overlay" style="top:600px; left:600px; width:240px;">
+      <textarea data-key="right-leg" placeholder="Right Leg" style="width:100%; height:60px;"></textarea>
+    </div>
+  </div>
+
+  <div id="page4" class="tab-content">
+    <img class="sheet" src="https://raw.githubusercontent.com/Vanoth/Dead-End-Traders-character-sheets/main/back%20fill%20bio%204.png" alt="Page 4">
+    
+    <div class="overlay" style="top:120px; left:60px; width:240px;">
+      <input type="text" data-key="planet" placeholder="Planet of Origin" style="width:100%;">
+    </div>
+    
+    <div class="overlay" style="top:180px; left:60px; width:120px;">
+      <input type="number" data-key="age" placeholder="Apparent Age" style="width:100%;">
+    </div>
+    
+    <div class="overlay" style="top:180px; left:300px; width:120px;">
+      <input type="text" data-key="race" placeholder="Race" style="width:100%;">
+    </div>
+    
+    <div class="overlay" style="top:240px; left:60px; width:360px; height:600px;">
+      <textarea data-key="biography" placeholder="Biography..." style="width:100%; height:100%;"></textarea>
+    </div>
+    
+    <div class="overlay" style="top:120px; left:540px; width:600px; height:720px;">
+      <textarea data-key="motives" placeholder="Motives..." style="width:100%; height:100%;"></textarea>
+    </div>
+  </div>
+
+  <div id="page5" class="tab-content">
+    <img class="sheet" src="https://raw.githubusercontent.com/Vanoth/Dead-End-Traders-character-sheets/main/back%20fill%20bio%204%20-%20Copy.png" alt="Page 5">
+    
+    <!-- Example extra fields - adjust as needed -->
+    <div class="overlay" style="top:120px; left:60px; width:240px;">
+      <input type="text" data-key="planet-extra" placeholder="Planet of Origin (Extra)" style="width:100%;">
+    </div>
+    <!-- Duplicate or add more fields matching page 4 layout if desired -->
+  </div>
+
 </div>
 
 <script>
@@ -344,7 +378,7 @@ function importData(event) {
   }
 }
 
-// NEW: Clear all data with confirmation dialog
+// Clear all data with confirmation
 function clearAllData() {
   const confirmed = confirm(
     "Are you sure you want to CLEAR ALL saved data for this character?\n\n" +
