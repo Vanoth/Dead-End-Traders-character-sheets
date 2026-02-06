@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Dead End Traders - Character Sheet</title>
   <style>
     body { margin:0; font-family: Arial, sans-serif; background:#000; color:#0ff; }
@@ -20,58 +20,14 @@
     .pool-sum { font-weight:bold; margin-left:10px; }
     .bar { width:100%; height:10px; background:#333; border:1px solid #0ff; }
     .bar-fill { height:100%; background:linear-gradient(to right, #0ff, #00f); }
-    
-    /* Improved avatar upload area */
-    #avatar-upload-area {
-      position:absolute;
-      top:40px;
-      left:40px;
-      width:280px;
-      text-align:center;
-      background:rgba(0,0,0,0.6);
-      border:2px dashed #0ff;
-      border-radius:12px;
-      padding:12px;
-      box-shadow:0 0 15px rgba(0,255,255,0.4);
-    }
-    #avatar-preview {
-      width:220px;
-      height:220px;
-      object-fit:cover;
-      border:3px solid #0ff;
-      border-radius:10px;
-      background:#111;
-      margin-bottom:10px;
-      box-shadow:0 0 12px #0ff;
-    }
-    #avatar-url-input {
-      width:100%;
-      margin-bottom:10px;
-      text-align:center;
-    }
-    #upload-avatar-btn {
-      background:#0ff;
-      color:#000;
-      border:none;
-      padding:12px 24px;
-      font-size:16px;
-      font-weight:bold;
-      border-radius:8px;
-      cursor:pointer;
-      margin:5px;
-      box-shadow:0 2px 8px rgba(0,255,255,0.5);
-    }
-    #upload-avatar-btn:hover {
-      background:#0cf;
-      box-shadow:0 0 15px #0ff;
-    }
-    
+    #avatar { position:absolute; top:50px; left:50px; width:240px; height:480px; object-fit:cover; border:none; }
+    #avatar-input { position:absolute; top:540px; left:50px; width:240px; }
     .skills-column { display:flex; flex-direction:column; }
     .skill-row { margin-bottom:5px; display:flex; align-items:center; }
     .skill-label { width:120px; text-align:right; margin-right:10px; }
     #export-btn { background:#ff0; color:#000; border:none; padding:10px; cursor:pointer; margin-top:10px; }
     
-    /* Reset button */
+    /* Reset button styling */
     #reset-btn {
       background:#c00; color:white; border:none; padding:12px 24px;
       font-size:16px; font-weight:bold; border-radius:6px; cursor:pointer;
@@ -95,23 +51,17 @@
   <input type="file" id="import-btn" accept=".json" style="display:none;" onchange="importData(event)">
   <button onclick="document.getElementById('import-btn').click()">Import Data</button>
 
+  <!-- Reset button with confirmation -->
   <button id="reset-btn" onclick="clearAllData()">Reset / Clear All Saved Data</button>
 
   <div id="page1" class="tab-content active">
     <img class="sheet" src="https://raw.githubusercontent.com/Vanoth/Dead-End-Traders-character-sheets/main/CHARACTER%20SHEET%201.png" alt="Page 1">
     
-    <!-- Improved Avatar Upload Section -->
-    <div id="avatar-upload-area">
-      <div style="margin-bottom:8px; font-weight:bold; font-size:18px;">Character Avatar</div>
-      
-      <img id="avatar-preview" src="" alt="Avatar Preview">
-      
-      <input type="text" id="avatar-url-input" data-key="avatar-url" placeholder="Paste image URL here" style="width:100%;margin-bottom:10px;">
-      
-      <label for="avatar-file-input" id="upload-avatar-btn">
-        Upload Avatar
-      </label>
-      <input type="file" id="avatar-file-input" accept="image/*" onchange="handleAvatarUpload(this)" style="display:none;">
+    <!-- Avatar overlay -->
+    <img id="avatar" src="" alt="Character Avatar">
+    <div id="avatar-input" class="overlay">
+      <input type="text" data-key="avatar-url" placeholder="Avatar URL" style="width:100%; margin-bottom:5px;">
+      <input type="file" accept="image/*" onchange="handleAvatarUpload(this)">
     </div>
     
     <!-- Name -->
@@ -221,79 +171,126 @@
     </div>
   </div>
 
-  <!-- Page 2, 3, 4, 5 – add your current content here if different -->
-  <!-- For now using placeholders – replace with your actual markup -->
-
+  <!-- Page 2 -->
   <div id="page2" class="tab-content">
     <img class="sheet" src="https://raw.githubusercontent.com/Vanoth/Dead-End-Traders-character-sheets/main/CHARACTER%20SHEET%20inventory2.png" alt="Page 2">
-    <!-- Your talents & inventory overlays here -->
+    
+    <!-- Left column skills -->
+    <div class="overlay skills-column" style="top:60px; left:50px; width:480px;">
+      <div class="skill-row">
+        <span class="skill-label">Alertness</span>
+        <span class="dot" data-key="alert1" onclick="toggleDot(this)">○</span><span class="dot" data-key="alert2" onclick="toggleDot(this)">○</span><span class="dot" data-key="alert3" onclick="toggleDot(this)">○</span><span class="dot" data-key="alert4" onclick="toggleDot(this)">○</span><span class="dot" data-key="alert5" onclick="toggleDot(this)">○</span>
+        <span class="pool-sum" id="alert-sum">0</span>
+      </div>
+      
+      <div class="skill-row" style="margin-top:30px;">
+        <span class="skill-label">Art</span>
+        <span class="dot" data-key="art1" onclick="toggleDot(this)">○</span><span class="dot" data-key="art2" onclick="toggleDot(this)">○</span><span class="dot" data-key="art3" onclick="toggleDot(this)">○</span><span class="dot" data-key="art4" onclick="toggleDot(this)">○</span><span class="dot" data-key="art5" onclick="toggleDot(this)">○</span>
+        <span class="pool-sum" id="art-sum">0</span>
+      </div>
+      
+      <!-- Add more left column skills here as needed -->
+    </div>
+    
+    <!-- Right column skills -->
+    <div class="overlay skills-column" style="top:60px; left:660px; width:480px;">
+      <div class="skill-row">
+        <span class="skill-label">Animal Ken</span>
+        <span class="dot" data-key="animalken1" onclick="toggleDot(this)">○</span><span class="dot" data-key="animalken2" onclick="toggleDot(this)">○</span><span class="dot" data-key="animalken3" onclick="toggleDot(this)">○</span><span class="dot" data-key="animalken4" onclick="toggleDot(this)">○</span><span class="dot" data-key="animalken5" onclick="toggleDot(this)">○</span>
+        <span class="pool-sum" id="animalken-sum">0</span>
+      </div>
+      
+      <!-- Add more right column skills here -->
+    </div>
+    
+    <!-- Player Inventory -->
+    <div class="overlay" style="top:600px; left:50px; width:1100px; height:240px;">
+      <textarea data-key="inventory" placeholder="Player Inventory..." style="width:100%; height:100%;"></textarea>
+    </div>
   </div>
 
+  <!-- Page 3 -->
   <div id="page3" class="tab-content">
     <img class="sheet" src="https://raw.githubusercontent.com/Vanoth/Dead-End-Traders-character-sheets/main/back%20fill%20CHARACTER%203.png" alt="Page 3">
-    <!-- Your augment overlays here -->
+    
+    <!-- Augments (rough positions – adjust later) -->
+    <div class="overlay" style="top:100px; left:240px; width:240px;">
+      <textarea data-key="head-augment" placeholder="Head Augment/Injury" style="width:100%; height:60px;"></textarea>
+    </div>
+    
+    <div class="overlay" style="top:180px; left:60px; width:240px;">
+      <textarea data-key="left-upper" placeholder="Left Upper" style="width:100%; height:60px;"></textarea>
+    </div>
+    
+    <div class="overlay" style="top:240px; left:720px; width:240px;">
+      <textarea data-key="right-arm" placeholder="Right Arm" style="width:100%; height:60px;"></textarea>
+    </div>
+    
+    <div class="overlay" style="top:480px; left:360px; width:240px;">
+      <textarea data-key="torso" placeholder="Torso" style="width:100%; height:60px;"></textarea>
+    </div>
+    
+    <div class="overlay" style="top:600px; left:120px; width:240px;">
+      <textarea data-key="left-leg" placeholder="Left Leg" style="width:100%; height:60px;"></textarea>
+    </div>
+    
+    <div class="overlay" style="top:600px; left:600px; width:240px;">
+      <textarea data-key="right-leg" placeholder="Right Leg" style="width:100%; height:60px;"></textarea>
+    </div>
   </div>
 
+  <!-- Page 4 -->
   <div id="page4" class="tab-content">
     <img class="sheet" src="https://raw.githubusercontent.com/Vanoth/Dead-End-Traders-character-sheets/main/back%20fill%20bio%204.png" alt="Page 4">
-    <!-- Your bio overlays here -->
+    
+    <div class="overlay" style="top:120px; left:60px; width:240px;">
+      <input type="text" data-key="planet" placeholder="Planet of Origin" style="width:100%;">
+    </div>
+    
+    <div class="overlay" style="top:180px; left:60px; width:140px;">
+      <input type="number" data-key="age" placeholder="Apparent Age" style="width:100%;">
+    </div>
+    
+    <div class="overlay" style="top:180px; left:240px; width:140px;">
+      <input type="text" data-key="race" placeholder="Race" style="width:100%;">
+    </div>
+    
+    <div class="overlay" style="top:240px; left:60px; width:360px; height:500px;">
+      <textarea data-key="biography" placeholder="Biography..." style="width:100%; height:100%;"></textarea>
+    </div>
+    
+    <div class="overlay" style="top:120px; left:520px; width:600px; height:620px;">
+      <textarea data-key="motives" placeholder="Motives..." style="width:100%; height:100%;"></textarea>
+    </div>
   </div>
 
+  <!-- Page 5 -->
   <div id="page5" class="tab-content">
     <img class="sheet" src="https://raw.githubusercontent.com/Vanoth/Dead-End-Traders-character-sheets/main/back%20fill%20bio%204%20-%20Copy.png" alt="Page 5">
-    <!-- Your extra bio overlays here -->
+    
+    <div class="overlay" style="top:120px; left:60px; width:240px;">
+      <input type="text" data-key="planet-extra" placeholder="Planet of Origin (Extra)" style="width:100%;">
+    </div>
+    
+    <!-- Add more fields as needed -->
   </div>
 
 </div>
 
 <script>
-// Player namespacing
+// ────────────────────────────────────────────────
+// PLAYER NAMESPACING & SAVE / LOAD / CLEAR SYSTEM
+// ────────────────────────────────────────────────
+
+// 1. Player-specific storage prefix
 let playerKey = localStorage.getItem('playerName') || prompt('Enter your player name:') || 'default';
 localStorage.setItem('playerName', playerKey);
-function getStorageKey(key) { return `${playerKey}_${key}`; }
 
-// Tab switching
-function openTab(tabId) {
-  document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
-  document.querySelectorAll('.tab-buttons button').forEach(el => el.classList.remove('active'));
-  document.getElementById(tabId).classList.add('active');
-  event.target.classList.add('active');
+function getStorageKey(key) {
+  return `${playerKey}_${key}`;
 }
 
-// Toggle dot
-function toggleDot(el) {
-  el.textContent = el.textContent === '○' ? '●' : '○';
-  el.classList.toggle('filled');
-  saveData(el);
-  updateSum(el.closest('.skill-row'));
-}
-
-// Update sum
-function updateSum(section) {
-  const sumEl = section.querySelector('.pool-sum');
-  if (sumEl) sumEl.textContent = section.querySelectorAll('.filled').length;
-}
-
-// Bar update
-function updateBar(input, fillId) {
-  document.getElementById(fillId).style.width = `${input.value}%`;
-  saveData(input);
-}
-
-// Avatar handling (file + URL)
-function handleAvatarUpload(input) {
-  const file = input.files[0];
-  if (file) {
-    const reader = new FileReader();
-    reader.onload = e => {
-      document.getElementById('avatar-preview').src = e.target.result;
-      localStorage.setItem(getStorageKey('avatar-data'), e.target.result);
-    };
-    reader.readAsDataURL(file);
-  }
-}
-
-// Save/load
+// 2. Save single element
 function saveData(el) {
   const key = getStorageKey(el.dataset.key);
   if (el.tagName === 'INPUT' || el.tagName === 'TEXTAREA') {
@@ -303,12 +300,21 @@ function saveData(el) {
   }
 }
 
+// 3. Auto-save every 5 seconds
+setInterval(() => {
+  document.querySelectorAll('input, textarea, .dot').forEach(saveData);
+}, 5000);
+
+// 4. Load all saved data when page opens
 window.addEventListener('load', () => {
+  // Restore inputs & textareas
   document.querySelectorAll('input[data-key], textarea[data-key]').forEach(el => {
     el.value = localStorage.getItem(getStorageKey(el.dataset.key)) || '';
     if (el.type === 'range') updateBar(el, `${el.dataset.key}-fill`);
     el.addEventListener('input', () => saveData(el));
   });
+
+  // Restore dots
   document.querySelectorAll('.dot').forEach(el => {
     const saved = localStorage.getItem(getStorageKey(el.dataset.key));
     if (saved) {
@@ -317,21 +323,82 @@ window.addEventListener('load', () => {
     }
     updateSum(el.closest('.skill-row'));
   });
-  // Load avatar
+
+  // Restore avatar
   const avatarUrl = localStorage.getItem(getStorageKey('avatar-url'));
   const avatarData = localStorage.getItem(getStorageKey('avatar-data'));
-  document.getElementById('avatar-preview').src = avatarData || avatarUrl || '';
-  document.getElementById('avatar-url-input').value = avatarUrl || '';
-  document.getElementById('avatar-url-input').addEventListener('input', e => {
-    document.getElementById('avatar-preview').src = e.target.value;
+  document.getElementById('avatar').src = avatarData || avatarUrl || '';
+  document.querySelector('[data-key="avatar-url"]').addEventListener('input', e => {
+    document.getElementById('avatar').src = e.target.value;
     saveData(e.target);
   });
 });
 
-// Auto-save
-setInterval(() => document.querySelectorAll('input, textarea, .dot').forEach(saveData), 5000);
+// 5. Clear / Reset all saved data with confirmation popup
+function clearAllData() {
+  const confirmed = confirm(
+    "Are you sure you want to CLEAR ALL saved data for this character?\n\n" +
+    "This will permanently delete:\n" +
+    "• All stats, dots, numbers, text\n" +
+    "• Talents, inventory, biography, augments\n" +
+    "• Avatar image and URL\n" +
+    "• Everything saved for this player name\n\n" +
+    "This CANNOT be undone!\n\n" +
+    "Click OK to reset everything, or Cancel to keep your data."
+  );
 
-// Export data
+  if (confirmed) {
+    // Remove only this player's data
+    Object.keys(localStorage).forEach(key => {
+      if (key.startsWith(playerKey + '_')) {
+        localStorage.removeItem(key);
+      }
+    });
+    // Reload to show blank sheet
+    location.reload();
+  }
+}
+
+// ────────────────────────────────────────────────
+// YOUR EXISTING FUNCTIONS (unchanged)
+// ────────────────────────────────────────────────
+
+function openTab(tabId) {
+  document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
+  document.querySelectorAll('.tab-buttons button').forEach(el => el.classList.remove('active'));
+  document.getElementById(tabId).classList.add('active');
+  event.target.classList.add('active');
+}
+
+function toggleDot(el) {
+  el.textContent = el.textContent === '○' ? '●' : '○';
+  el.classList.toggle('filled');
+  saveData(el);
+  updateSum(el.closest('.skill-row'));
+}
+
+function updateSum(section) {
+  const sumEl = section.querySelector('.pool-sum');
+  if (sumEl) sumEl.textContent = section.querySelectorAll('.filled').length;
+}
+
+function updateBar(input, fillId) {
+  document.getElementById(fillId).style.width = `${input.value}%`;
+  saveData(input);
+}
+
+function handleAvatarUpload(input) {
+  const file = input.files[0];
+  if (file) {
+    const reader = new FileReader();
+    reader.onload = e => {
+      document.getElementById('avatar').src = e.target.result;
+      localStorage.setItem(getStorageKey('avatar-data'), e.target.result);
+    };
+    reader.readAsDataURL(file);
+  }
+}
+
 function exportData() {
   const data = {};
   document.querySelectorAll('[data-key]').forEach(el => {
@@ -346,7 +413,6 @@ function exportData() {
   URL.revokeObjectURL(url);
 }
 
-// Import data
 function importData(event) {
   const file = event.target.files[0];
   if (file) {
@@ -364,35 +430,12 @@ function importData(event) {
           }
         }
         if (key === 'avatar-data' || key === 'avatar-url') {
-          document.getElementById('avatar-preview').src = data[key];
+          document.getElementById('avatar').src = data[key];
         }
       });
       document.querySelectorAll('.skill-row').forEach(updateSum);
     };
     reader.readAsText(file);
-  }
-}
-
-// Clear all data with confirmation
-function clearAllData() {
-  const confirmed = confirm(
-    "Are you sure you want to CLEAR ALL saved data for this character?\n\n" +
-    "This will reset:\n" +
-    "- All attributes, dots, numbers, text fields\n" +
-    "- Talents, inventory, biography, augments\n" +
-    "- Avatar image and URL\n" +
-    "- Everything saved in your browser for this player name\n\n" +
-    "This action CANNOT be undone.\n\n" +
-    "Click OK to reset, or Cancel to keep your data."
-  );
-
-  if (confirmed) {
-    Object.keys(localStorage).forEach(key => {
-      if (key.startsWith(playerKey + '_')) {
-        localStorage.removeItem(key);
-      }
-    });
-    location.reload();
   }
 }
 </script>
