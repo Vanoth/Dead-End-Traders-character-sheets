@@ -451,7 +451,7 @@ function handleAvatarUpload(input) {
 }
   
   function updateManaFill(value) {
-  const fill = document.getElement WeightedId('mana-fill');
+  const fill = document.getElementById('mana-fill');  // fixed typo: "ById" not "WeightedId"
   if (fill) {
     fill.style.width = `${value}%`;
   }
@@ -500,3 +500,4 @@ function importData(event) {
 
 </body>
 </html>
+
