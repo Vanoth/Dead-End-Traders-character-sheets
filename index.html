@@ -93,12 +93,14 @@
     </div>
     
     <!-- Health bar -->
-<div class="overlay" style="top:498px; left:-117px; width:303px;">
-  <div style="display:flex; align-items:center; justify-content:center; gap:20px; height:50px;">
-    <span style="font-weight:bold; font-size:20px;"></span>
-    <input type="number" data-key="health" min="0" max="100" value="50" step="1" 
-           style="width:60px; height:30px; font-size:20px; text-align:center; background:rgba(0,0,0,0.6); color:#0ff; border:2px solid #0ff; padding:0;">
-    <span style="font-weight:bold; font-size:20px;"></span>
+<div class="overlay" style="top:498px; left:-117px; width:550px;">
+  <div style="display:flex; align-items:center; gap:20px; height:50px;">
+    <span style="font-weight:bold; font-size:20px; white-space:nowrap;">Health:</span>
+    <div class="bar" style="flex:1;"><div class="bar-fill" id="health-fill" style="width:50%;"></div></div>
+    <input type="number" id="health-input" data-key="health" min="0" max="100" value="50" step="1" 
+           style="width:90px; height:40px; font-size:24px; text-align:center; background:rgba(0,0,0,0.6); color:#0ff; border:2px solid #0ff; padding:0;"
+           oninput="updateHealthFill(this.value); saveData(this)">
+    <span style="font-weight:bold; font-size:20px;">%</span>
   </div>
 </div>
     
@@ -418,6 +420,13 @@ function handleAvatarUpload(input) {
   }
 }
 
+  function updateHealthFill(value) {
+  const fill = document.getElementById('health-fill');
+  if (fill) {
+    fill.style.width = `${value}%`;
+  }
+}
+  
 function exportData() {
   const data = {};
   document.querySelectorAll('[data-key]').forEach(el => {
@@ -461,6 +470,7 @@ function importData(event) {
 
 </body>
 </html>
+
 
 
 
