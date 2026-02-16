@@ -346,10 +346,11 @@ window.addEventListener('load', () => {
     el.value = localStorage.getItem(getStorageKey(el.dataset.key)) || '';
     if (el.type === 'range') updateBar(el, `${el.dataset.key}-fill`);
     el.addEventListener('input', () => saveData(el));
-      const healthInput = document.querySelector('[data-key="health"]');
+        const healthInput = document.querySelector('[data-key="health"]');
   if (healthInput) {
     updateHealthFill(healthInput.value);
-      const manaInput = document.querySelector('[data-key="mana"]');
+  }
+  const manaInput = document.querySelector('[data-key="mana"]');
   if (manaInput) {
     updateManaFill(manaInput.value);
   }
@@ -500,4 +501,5 @@ function importData(event) {
 
 </body>
 </html>
+
 
