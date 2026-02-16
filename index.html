@@ -397,7 +397,9 @@ function updateSum(section) {
 }
 
 function updateBar(input, fillId) {
-  document.getElementById(fillId).style.width = `${input.value}%`;
+  const value = input.value;
+  document.getElementById(fillId).style.width = `${value}%`;
+  document.getElementById('health-value').textContent = `${value}%`;
   saveData(input);
 }
 
@@ -456,6 +458,7 @@ function importData(event) {
 
 </body>
 </html>
+
 
 
 
