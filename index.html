@@ -346,6 +346,10 @@ window.addEventListener('load', () => {
       const healthInput = document.querySelector('[data-key="health"]');
   if (healthInput) {
     updateHealthFill(healthInput.value);
+      const manaInput = document.querySelector('[data-key="mana"]');
+  if (manaInput) {
+    updateManaFill(manaInput.value);
+  }
   }
   });
 
@@ -493,6 +497,7 @@ function importData(event) {
 
 </body>
 </html>
+
 
 
 
