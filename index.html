@@ -106,14 +106,16 @@
 </div>
     
    <!-- Mana -->
-<div class="overlay" style="top:558px; left:1px; width:374px;">
-  <div style="display:flex; align-items:center; gap:3px; height:50px;">
+<div class="overlay" style="top:543px; left:9px; width:354px;">
+  <div style="display:flex; align-items:center; gap:6px; height:40px;">
     <span style="font-weight:bold; font-size:18px; white-space:nowrap;"></span>
     <input type="number" id="mana-input" data-key="mana" min="0" max="100" value="50" step="1" 
            style="width:50px; height:40px; font-size:20px; text-align:center; background:rgba(0,0,0,0.6); color:#0ff; border:2px solid #0ff; padding:0;"
            oninput="updateManaFill(this.value); saveData(this)">
-    <span style="font-weight:bold; font-size:20px;"></span>
-    <div class="bar" style="flex:1; height:40px; background:#333; border:1px solid #0ff; position:relative;">
+    <span style="font-weight:bold; font-size:18px;"></span>
+   <input type="number" id="mana-input" data-key="mana" min="0" max="100" value="50" step="1" style="width: 44px;height: 40px;font-size:20px;text-align:center;background:rgba(0,0,0,0.6);color:#0ff;border:2px solid #0ff;padding:0;" oninput="updateManaFill(this.value); saveData(this)">
+      <span style="font-weight:bold;font-size:20px;"></span>
+    <div class="bar" style="flex:1;height: 20px;background:#333;border:1px solid #0ff;position:relative;">
       <div class="bar-fill" id="mana-fill" style="width:50%; height:100%; background:linear-gradient(to right, #a0f, #f0f); position:absolute; left:0; top:0;"></div>
     </div>
   </div>
@@ -500,6 +502,7 @@ function importData(event) {
 
 </body>
 </html>
+
 
 
 
