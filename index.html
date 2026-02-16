@@ -331,6 +331,10 @@ window.addEventListener('load', () => {
     el.value = localStorage.getItem(getStorageKey(el.dataset.key)) || '';
     if (el.type === 'range') updateBar(el, `${el.dataset.key}-fill`);
     el.addEventListener('input', () => saveData(el));
+      const healthInput = document.querySelector('[data-key="health"]');
+  if (healthInput) {
+    updateHealthFill(healthInput.value);
+  }
   });
 
   // Restore dots
@@ -470,6 +474,7 @@ function importData(event) {
 
 </body>
 </html>
+
 
 
 
