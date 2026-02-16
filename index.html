@@ -93,10 +93,11 @@
     </div>
     
     <!-- Health bar -->
-    <div class="overlay" style="top:507px; left:70px; width:298px;">
-      <div class="bar"><div class="bar-fill" id="health-fill" style="width:50%;"></div></div>
-      <input type="range" data-key="health" min="0" max="100" value="50" style="width:100%;" oninput="updateBar(this, 'health-fill')">
-    </div>
+<div class="overlay" style="top:507px; left:70px; width:298px;">
+  <div style="text-align:center; margin-bottom:8px; font-weight:bold; font-size:18px;" id="health-value">50%</div>
+  <div class="bar"><div class="bar-fill" id="health-fill" style="width:50%;"></div></div>
+  <input type="range" data-key="health" min="0" max="100" value="50" style="width:100%;" oninput="updateBar(this, 'health-fill')">
+</div>
     
     <!-- EXP -->
     <div class="overlay" style="top:196px; left:290px; width:36px;">
@@ -455,6 +456,7 @@ function importData(event) {
 
 </body>
 </html>
+
 
 
 
