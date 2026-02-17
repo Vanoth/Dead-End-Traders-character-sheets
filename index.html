@@ -15,19 +15,18 @@
     img.sheet { width:100%; height:auto; display:block; }
     .overlay { position:absolute; color:#0ff; font-size:16px; }
     input, textarea { background:rgba(0,0,0,0.6); color:#0ff; border:1px solid #0ff; padding:4px; }
-.dot { 
-  cursor: pointer; 
-  width: 76px; 
-  height: 76px; 
-  line-height: 76px; 
-  text-align: center; 
-  font-size: 68px; 
-  display: inline-block; 
-  margin: 0 12px; 
-}
-.pool-sum { font-weight:bold; margin-left:40px; }
+    .dot { 
+      cursor: pointer; 
+      width: 76px; 
+      height: 76px; 
+      line-height: 76px; 
+      text-align: center; 
+      font-size: 68px; 
+      display: inline-block; 
+      margin: 0 12px; 
+    }
     .filled { color:#ff0; }
-    .pool-sum { font-weight:bold; margin-left:10px; }
+    .pool-sum { font-weight:bold; margin-left:40px; }
     .bar { width:100%; height:28px; background:#333; border:1px solid #0ff; }
     .bar-fill { height:100%; background:linear-gradient(to right, #0ff, #00f); }
     #mana-fill { background: linear-gradient(to right, #a0f, #f0f); }
@@ -51,11 +50,11 @@
 
 <div id="container">
   <div class="tab-buttons">
-    <button onclick="openTab('page1')" class="active">Page 1: Attributes</button>
-    <button onclick="openTab('page2')">Page 2: Talents & Inventory</button>
-    <button onclick="openTab('page3')">Page 3: Augments</button>
-    <button onclick="openTab('page4')">Page 4: Biography</button>
-    <button onclick="openTab('page5')">Page 5: Extra Bio</button>
+    <button onclick="openTab('page1', this)" class="active">Page 1: Attributes</button>
+    <button onclick="openTab('page2', this)">Page 2: Talents & Inventory</button>
+    <button onclick="openTab('page3', this)">Page 3: Augments</button>
+    <button onclick="openTab('page4', this)">Page 4: Biography</button>
+    <button onclick="openTab('page5', this)">Page 5: Extra Bio</button>
   </div>
 
   <button id="export-btn" onclick="exportData()">Export Data</button>
@@ -81,7 +80,7 @@
     </div>
     
     <!-- Titles -->
-    <div class="overlay" style="top:417px; left:3px; width:355px; " height:440px;"="">
+    <div class="overlay" style="top:417px; left:3px; width:355px; height:440px;">
       <textarea data-key="Titles" placeholder="Titles and Aliases..." style="width:100%; height:100%;"></textarea>
     </div>
     
@@ -90,31 +89,31 @@
       <input type="number" data-key="lv" placeholder="LV" style="width:100%;">
     </div>
     
-  <!-- Health -->
-<div class="overlay" style="top:490px; left:1px; width:374px;">
-  <div style="display:flex; align-items:center; gap:3px; height:50px;">
-    <span style="font-weight:bold; font-size:18px; white-space:nowrap;"></span>
-    <input type="number" id="health-input" data-key="health" min="0" max="100" value="50" step="1" 
-           style="width:50px; height:40px; font-size:20px; text-align:center; background:rgba(0,0,0,0.6); color:#0ff; border:2px solid #0ff; padding:0;"
-           on OXinput="updateHealthFill(this.value); saveData(this)">
-    <span style="font-weight:bold; font-size:20px;"></span>
-    <div class="bar" style="flex:1;"><div class="bar-fill" id="health-fill"></div></div>  <!-- removed inline width -->
-  </div>
-</div>
-    
- <!-- Mana -->
-<div class="overlay" style="top:543px; left:9px; width:354px;">
-  <div style="display:flex; align-items:center; gap:6px; height:40px;">
-    <span style="font-weight:bold; font-size:18px; white-space:nowrap;"></span>
-    <input type="number" id="mana-input" data-key="mana" min="0" max="100" value="50" step="1" 
-           style="width:44px; height:40px; font-size:18px; text-align:center; background:rgba(0,0,0,0.6); color:#0ff; border:2px solid #0ff; padding:0;"
-           oninput="updateManaFill(this.value); saveData(this)">
-    <span style="font-weight:bold; font-size:20px;"></span>
-    <div class="bar" style="flex:1; height:20px; background:#333; border:1px solid #0ff; position:relative;">
-      <div class="bar-fill" id="mana-fill" style="height:100%; background:linear-gradient(to right, #a0f, #f0f); position:absolute; left:0; top:0;"></div>  <!-- removed inline width -->
+    <!-- Health -->
+    <div class="overlay" style="top:490px; left:1px; width:374px;">
+      <div style="display:flex; align-items:center; gap:3px; height:50px;">
+        <span style="font-weight:bold; font-size:18px; white-space:nowrap;"></span>
+        <input type="number" id="health-input" data-key="health" min="0" max="100" value="50" step="1" 
+               style="width:50px; height:40px; font-size:20px; text-align:center; background:rgba(0,0,0,0.6); color:#0ff; border:2px solid #0ff; padding:0;"
+               oninput="updateHealthFill(this.value); saveData(this)">
+        <span style="font-weight:bold; font-size:20px;"></span>
+        <div class="bar" style="flex:1;"><div class="bar-fill" id="health-fill"></div></div>
+      </div>
     </div>
-  </div>
-</div>
+    
+    <!-- Mana -->
+    <div class="overlay" style="top:543px; left:9px; width:354px;">
+      <div style="display:flex; align-items:center; gap:6px; height:40px;">
+        <span style="font-weight:bold; font-size:18px; white-space:nowrap;"></span>
+        <input type="number" id="mana-input" data-key="mana" min="0" max="100" value="50" step="1" 
+               style="width:44px; height:40px; font-size:18px; text-align:center; background:rgba(0,0,0,0.6); color:#0ff; border:2px solid #0ff; padding:0;"
+               oninput="updateManaFill(this.value); saveData(this)">
+        <span style="font-weight:bold; font-size:20px;"></span>
+        <div class="bar" style="flex:1; height:20px; background:#333; border:1px solid #0ff; position:relative;">
+          <div class="bar-fill" id="mana-fill" style="height:100%; position:absolute; left:0; top:0;"></div>
+        </div>
+      </div>
+    </div>
     
     <!-- EXP -->
     <div class="overlay" style="top:196px; left:290px; width:36px;">
@@ -137,37 +136,37 @@
     </div>
     
     <!-- Mental Attributes -->
-<div class="overlay" style="top:98px; left:370px; width:480px;">
-  <div class="skill-row">
-    <span class="skill-label"></span>
-    <span class="dot" data-key="wits1" onclick="toggleDot(this)">○</span><span class="dot" data-key="wits2" onclick="toggleDot(this)">○</span><span class="dot" data-key="wits3" onclick="toggleDot(this)">○</span><span class="dot" data-key="wits4" onclick="toggleDot(this)">○</span><span class="dot" data-key="wits5" onclick="toggleDot(this)">○</span>
-    <span class="pool-sum" id="wits-sum">0</span>
-  </div>
-  
-  <div class="skill-row" style="margin-top:14px;">
-    <span class="skill-label"></span>
-    <span class="dot" data-key="perc1" onclick="toggleDot(this)">○</span><span class="dot" data-key="perc2" onclick="toggleDot(this)">○</span><span class="dot" data-key="perc3" onclick="toggleDot(this)">○</span><span class="dot" data-key="perc4" onclick="toggleDot(this)">○</span><span class="dot" data-key="perc5" onclick="toggleDot(this)">○</span>
-    <span class="pool-sum" id="perc-sum">0</span>
-  </div>
-  
-  <div class="skill-row" style="margin-top:16px;">
-    <span class="skill-label"></span>
-    <span class="dot" data-key="int1" onclick="toggleDot(this)">○</span><span class="dot" data-key="int2" onclick="toggleDot(this)">○</span><span class="dot" data-key="int3" onclick="toggleDot(this)">○</span><span class="dot" data-key="int4" onclick="toggleDot(this)">○</span><span class="dot" data-key="int5" onclick="toggleDot(this)">○</span>
-    <span class="pool-sum" id="int-sum">0</span>
-  </div>
-  
-  <div class="skill-row" style="margin-top:19px;">
-    <span class="skill-label"></span>
-    <span class="dot" data-key="char1" onclick="toggleDot(this)">○</span><span class="dot" data-key="char2" onclick="toggleDot(this)">○</span><span class="dot" data-key="char3" onclick="toggleDot(this)">○</span><span class="dot" data-key="char4" onclick="toggleDot(this)">○</span><span class="dot" data-key="char5" onclick="toggleDot(this)">○</span>
-    <span class="pool-sum" id="char-sum">0</span>
-  </div>
-  
-  <div class="skill-row" style="margin-top:16px;">
-    <span class="skill-label"></span>
-    <span class="dot" data-key="manip1" onclick="toggleDot(this)">○</span><span class="dot" data-key="manip2" onclick="toggleDot(this)">○</span><span class="dot" data-key="manip3" onclick="toggleDot(this)">○</span><span class="dot" data-key="manip4" onclick="toggleDot(this)">○</span><span class="dot" data-key="manip5" onclick="toggleDot(this)">○</span>
-    <span class="pool-sum" id="manip-sum">0</span>
-  </div>
-</div>
+    <div class="overlay" style="top:98px; left:370px; width:480px;">
+      <div class="skill-row">
+        <span class="skill-label"></span>
+        <span class="dot" data-key="wits1" onclick="toggleDot(this)">○</span><span class="dot" data-key="wits2" onclick="toggleDot(this)">○</span><span class="dot" data-key="wits3" onclick="toggleDot(this)">○</span><span class="dot" data-key="wits4" onclick="toggleDot(this)">○</span><span class="dot" data-key="wits5" onclick="toggleDot(this)">○</span>
+        <span class="pool-sum" id="wits-sum">0</span>
+      </div>
+      
+      <div class="skill-row" style="margin-top:14px;">
+        <span class="skill-label"></span>
+        <span class="dot" data-key="perc1" onclick="toggleDot(this)">○</span><span class="dot" data-key="perc2" onclick="toggleDot(this)">○</span><span class="dot" data-key="perc3" onclick="toggleDot(this)">○</span><span class="dot" data-key="perc4" onclick="toggleDot(this)">○</span><span class="dot" data-key="perc5" onclick="toggleDot(this)">○</span>
+        <span class="pool-sum" id="perc-sum">0</span>
+      </div>
+      
+      <div class="skill-row" style="margin-top:16px;">
+        <span class="skill-label"></span>
+        <span class="dot" data-key="int1" onclick="toggleDot(this)">○</span><span class="dot" data-key="int2" onclick="toggleDot(this)">○</span><span class="dot" data-key="int3" onclick="toggleDot(this)">○</span><span class="dot" data-key="int4" onclick="toggleDot(this)">○</span><span class="dot" data-key="int5" onclick="toggleDot(this)">○</span>
+        <span class="pool-sum" id="int-sum">0</span>
+      </div>
+      
+      <div class="skill-row" style="margin-top:19px;">
+        <span class="skill-label"></span>
+        <span class="dot" data-key="char1" onclick="toggleDot(this)">○</span><span class="dot" data-key="char2" onclick="toggleDot(this)">○</span><span class="dot" data-key="char3" onclick="toggleDot(this)">○</span><span class="dot" data-key="char4" onclick="toggleDot(this)">○</span><span class="dot" data-key="char5" onclick="toggleDot(this)">○</span>
+        <span class="pool-sum" id="char-sum">0</span>
+      </div>
+      
+      <div class="skill-row" style="margin-top:16px;">
+        <span class="skill-label"></span>
+        <span class="dot" data-key="manip1" onclick="toggleDot(this)">○</span><span class="dot" data-key="manip2" onclick="toggleDot(this)">○</span><span class="dot" data-key="manip3" onclick="toggleDot(this)">○</span><span class="dot" data-key="manip4" onclick="toggleDot(this)">○</span><span class="dot" data-key="manip5" onclick="toggleDot(this)">○</span>
+        <span class="pool-sum" id="manip-sum">0</span>
+      </div>
+    </div>
     
     <!-- Physical Attributes -->
     <div class="overlay" style="top:450px; left:360px; width:480px;">
@@ -343,7 +342,8 @@ window.addEventListener('load', () => {
     el.value = localStorage.getItem(getStorageKey(el.dataset.key)) || '';
     if (el.type === 'range') updateBar(el, `${el.dataset.key}-fill`);
     el.addEventListener('input', () => saveData(el));
-        const healthInput = document.querySelector('[data-key="health"]');
+  });
+  const healthInput = document.querySelector('[data-key="health"]');
   if (healthInput) {
     updateHealthFill(healthInput.value);
   }
@@ -351,8 +351,6 @@ window.addEventListener('load', () => {
   if (manaInput) {
     updateManaFill(manaInput.value);
   }
-  }
-  });
 
   // Restore dots
   document.querySelectorAll('.dot').forEach(el => {
@@ -403,11 +401,11 @@ function clearAllData() {
 // YOUR EXISTING FUNCTIONS (unchanged)
 // ────────────────────────────────────────────────
 
-function openTab(tabId) {
+function openTab(tabId, button) {
   document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
   document.querySelectorAll('.tab-buttons button').forEach(el => el.classList.remove('active'));
   document.getElementById(tabId).classList.add('active');
-  event.target.classList.add('active');
+  button.classList.add('active');
 }
 
 function toggleDot(el) {
@@ -422,11 +420,18 @@ function updateSum(section) {
   if (sumEl) sumEl.textContent = section.querySelectorAll('.filled').length;
 }
 
-function updateBar(input, fillId) {
-  const value = input.value;
-  document.getElementById(fillId).style.width = `${value}%`;
-  document.getElementById('health-value').textContent = `${value}%`;
-  saveData(input);
+function updateHealthFill(value) {
+  const fill = document.getElementById('health-fill');
+  if (fill) {
+    fill.style.width = `${value}%`;
+  }
+}
+
+function updateManaFill(value) {
+  const fill = document.getElementById('mana-fill');
+  if (fill) {
+    fill.style.width = `${value}%`;
+  }
 }
 
 function handleAvatarUpload(input) {
@@ -441,20 +446,6 @@ function handleAvatarUpload(input) {
   }
 }
 
-  function updateHealthFill(value) {
-  const fill = document.getElementById('health-fill');
-  if (fill) {
-    fill.style.width = `${value}%`;
-  }
-}
-  
-  function updateManaFill(value) {
-  const fill = document.getElementById('mana-fill');  // fixed typo: "ById" not "WeightedId"
-  if (fill) {
-    fill.style.width = `${value}%`;
-  }
-}
-  
 function exportData() {
   const data = {};
   document.querySelectorAll('[data-key]').forEach(el => {
@@ -498,10 +489,3 @@ function importData(event) {
 
 </body>
 </html>
-
-
-
-
-
-
-
